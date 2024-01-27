@@ -1,0 +1,179 @@
+<!-- <p>dashboard works!</p> -->
+<style>
+    main{
+          background-color: rgb(227, 227, 227);
+          background-color:rgb(68, 71, 70);
+          min-height:100vh;
+          width: 95%;
+    }
+    /* div{
+        border:1px solid red;
+    } */
+
+
+div.card-div{
+    /* border:1px solid black; */
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap:20px;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 10px;
+    transition: all 1s ease-in-out;
+}
+
+       div.mycards{
+    
+    /* border:1px solid red; */
+    width:clamp(300px,30%,400px);
+    height:320px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    border-radius:0px;
+    border-top-right-radius: 20px;
+    border-top-left-radius: 20px;
+    transition: all 1s ease-in-out;
+    
+   }
+
+   div.mycards figure{
+    width:100%;
+    height:100%;
+    position:relative;
+   }
+   div.mycards figure img{
+    position: relative;
+    width:100%;
+    height: 100%
+
+}
+
+ div.mycards article{
+    
+    position: absolute;
+    width:100%;
+    padding:8px;
+    /* border:1px solid black; */
+    color: white;
+    bottom:0px;
+    /* background-color: rgba(223, 204, 204, 0.452); */
+    /* background-color: rgba(100, 99, 99, 0.185); */
+    background-color: rgba(0, 0, 0, 0.904);
+    
+
+    visibility: hidden;
+    opacity: 0;
+    /* display: none; */
+    transition: all 0.5s ease-in-out;
+
+ }
+
+ div.mycards:hover article{
+    bottom:16px;
+    background-color: rgba(223, 204, 204, 0.452);
+    visibility: visible;
+    opacity: 1;
+    /* display: block; */
+ }
+
+ div.error{
+    /* border:1px solid white; */
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap:20px;
+    justify-content: center;
+    align-items: center;
+
+}
+ div.error figure{
+       width:500px;
+       position:relative;
+ }
+
+ div.error img{
+    position: relative;
+    width:100%;
+    border-radius: 20px 40px;
+
+ }
+ /* div.modal-body {
+   min-height:400px;
+ } */
+ div.modal-body figure{
+      width:100%;
+      
+ }
+
+ div.modal-body img{
+   transform: scale(1);
+   transition: all 1s ease-in-out;
+ }
+ div.modal-body:hover img{
+   transform: scale(1.6);
+ }
+   
+</style>
+<app-header (searching)="searchinput($event)"></app-header>
+<main class="mt-4 mx-auto rounded-3">
+      <section class="category d-flex flex-column gap-3">
+          <h2 class="text-center mt-2 text-light">Categories</h2>
+          <div class="category_btn d-flex justify-content-center align-items-center flex-wrap gap-3 px-1 py-1">
+             <button *ngFor="let link of links;let i = index;" type="button" class="rounded-pill btn btn-light fw-bold" (click)="sorting(link)">{{link | titlecase}}</button>
+          </div>
+      </section>
+
+
+      <section class="img-collection">
+             <!-- img cards -->
+
+               <!-- <router-outlet></router-outlet> -->
+               <!-- <app-all [sortby]="sortname"></app-all> -->
+
+               <div *ngIf="error" class="error">
+                <h1 class="text-danger text-center my-2">{{error}}</h1>
+                <figure>
+                    <img src="../../assets/404page.jpg" alt="404img" >
+                </figure>
+               </div>
+
+               <div class="card-div">
+                <div class="mycards pb-0" *ngFor="let img of imgdata | filterdata : sortname let i = index">
+                  <figure class="card-body">
+                     <a href="{{'#mymodal' + i}}" data-bs-toggle="modal"><img [src]="img.path" alt="img" (contextmenu)="disablerightclick($event)"></a>
+                  </figure>
+                  <article class="card-footer d-flex justify-content-between align-items-center">
+                     <span>#{{img.category}}</span>
+                     <a [href]="img.path" role="button" class="btn btn-success" download>download</a>
+                  </article>   
+                  
+                   <!-- Modal -->
+ <div class="modal fade" id="{{'mymodal' + i}}" data-bs-backdrop="static">
+   <div class="modal-dialog modal-dialog-centered">
+     <div class="modal-content">
+       <div class="modal-header">
+         <h1 class="modal-title fs-5" id="staticBackdropLabel">{{img.category}}</h1>
+         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+       </div>
+       <div class="modal-body">
+           <figure >
+            <img [src]="img.path" alt="img" (contextmenu)="disablerightclick($event)">
+           </figure>
+           <figcaption class="d-flex justify-content-end">
+              <a [href]="img.path" role="button" class="btn btn-success" download>download</a>
+           </figcaption>
+       </div>
+     </div>
+   </div>
+ </div>
+               </div>
+            
+            </div>
+         
+      </section>
+</main>

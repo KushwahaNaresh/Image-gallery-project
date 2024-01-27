@@ -1,0 +1,32 @@
+<style>
+    /* div{
+      border:1px solid red;
+    } */
+    header{
+        background-color: rgb(227, 227, 227);
+        background-color: rgb(42, 42, 42);
+    }
+
+    header img.logo{
+      width:200px;
+    }
+
+    </style>
+    
+    <header class="position-sticky sticky-top">
+      <div class="py-2 px-3 d-flex flex-md-row gap-md-0 flex-wrap justify-content-between align-items-center flex-column gap-3">
+    
+        <a href="#" >
+          <img src="../assets/logo/naresh-kushwaha-high-resolution-logo-white-transparent.png" alt="logo" class="logo img-fluid">
+        </a>
+        
+        <div class="button-group d-flex gap-1">
+            <label>
+                <input type="search" class="form-control" placeholder="Search images ..." [(ngModel)]="searchText" (keypress)="enterfunc($event)">
+            </label>
+            <button type="button" class="btn btn-warning" (click)="sendtoparent(searchText)">
+                <i class="bi bi-search"></i>
+            </button>
+        </div>
+      </div>
+    </header>
