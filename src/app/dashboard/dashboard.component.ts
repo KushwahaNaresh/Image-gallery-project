@@ -39,6 +39,7 @@ export class DashboardComponent{
       //      console.error(`Error ${error}`);
 
       this.imgdata =this.http.getimgdata()
+      console.log(this.imgdata);
   
   //  })
   }
